@@ -53,8 +53,8 @@ inputTriangles = [
   },
   { // TURTLE2
     "material": {"ambient": [0.1,0.1,0.1], "diffuse": [0.2,0.3,0], "specular": [0.3,0.3,0.3], "n": 11, "alpha": 0.9, "texture": "abe.png"}, 
-    "vertices": [[-0.1, 0.95, 0.65],[-0.4, 1.05, 0.65],[-0.1, 1.15, 0.65],
-                 [-0.1, 0.95, 0.55],[-0.4, 1.05, 0.55],[-0.1, 1.15, 0.35]],
+    "vertices": [[0.2, 0.8, 0.65],[-0, 0.85, 0.65],[0.2, 0.92, 0.7],
+                 [0.2, 0.8, 0.55],[-0, 0.85, 0.55],[0.2, 0.92, 0.6]],
     //           [0.1, -0.3, 0.75],[0.25, -0.6, 0.75],[0.4, -0.3, 0.75]
     "normals": [[0, 0, -1],[0, 0,-1],[0, 0,-1],[0, 0, -1],[0, 0,-1],[0, 0,-1]],
     "uvs": [[0,0], [0.5,1], [1,0]],
@@ -327,7 +327,7 @@ function setupWebGL() {
       imageContext = imageCanvas.getContext("2d"); 
       var bkgdImage = new Image(); 
       bkgdImage.crossOrigin = "Anonymous";
-      bkgdImage.src = "https://ncsucgclass.github.io/prog4/stars.jpg";
+      bkgdImage.src = "https://ncsucgclass.github.io/prog4/sky.jpg";
       bkgdImage.onload = function(){
           var iw = bkgdImage.width, ih = bkgdImage.height;
           imageContext.drawImage(bkgdImage,0,0,iw,ih,0,0,cw,ch);   
