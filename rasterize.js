@@ -9,7 +9,7 @@ var defaultUp = vec3.fromValues(0,1,0); // default view up vector
 var lightAmbient = vec3.fromValues(1,1,1); // default light ambient emission
 var lightDiffuse = vec3.fromValues(1,1,1); // default light diffuse emission
 var lightSpecular = vec3.fromValues(1,1,1); // default light specular emission
-var lightPosition = vec3.fromValues(-0.5,1.5,-0.5); // default light position
+var lightPosition = vec3.fromValues(-0,.5,-2); // default light position
 var rotateTheta = Math.PI/50; // how much to rotate models by with each key press
 
 /* webgl and geometry data */
@@ -62,8 +62,8 @@ inputTriangles = [
   },
   { // LOG1
     "material": {"ambient": [0.1,0.1,0.1], "diffuse": [0.36,0.25,0.2], "specular": [0.3,0.3,0.3], "n":17, "alpha": 0.3, "texture": "tree.png"}, 
-    "vertices": [[0.8, 1, 0.65],[0.8, 1.15, 0.65],[1.2, 1.15,0.65],[1.2, 1,0.65],
-                 [0.8, 1, 0.55],[0.8, 1.15, 0.55],[1.2, 1.15,0.55],[1.2, 1,0.55]],
+    "vertices": [[0.7, 0.85, 0.9],[0.7, 0.95, 0.95],[1, 0.95,0.95],[1, 0.85,0.9],
+                 [0.7, 0.85, 0.6],[0.7, 0.95, 0.65],[1, 0.95,0.65],[1, 0.85,0.6]],
     //           [0.8, 0.1, 0.65],[0.8, 0.25, 0.65],[1.2,0.25,0.65],[1.2,0.1,0.65]
     "normals": [[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1]],
     "uvs": [[0,0], [0,1], [1,1], [1,0]],
