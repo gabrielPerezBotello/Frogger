@@ -1,8 +1,8 @@
 /* GLOBAL CONSTANTS AND VARIABLES */
 
 /* assignment specific globals */
-const INPUT_TRIANGLES_URL = "https://ncsucgclass.github.io/prog3/triangles.json"; // triangles file loc
-const INPUT_ELLIPSOIDS_URL = "https://ncsucgclass.github.io/prog3/ellipsoids.json"; // ellipsoids file loc
+const INPUT_TRIANGLES_URL = "https://ncsucgclass.github.io/prog4/triangles.json"; // triangles file loc
+const INPUT_ELLIPSOIDS_URL = "https://ncsucgclass.github.io/prog4/ellipsoids.json"; // ellipsoids file loc
 var defaultEye = vec3.fromValues(0.5,0.5,-0.5); // default eye position in world space
 var defaultCenter = vec3.fromValues(0.5,0.5,0.5); // default view direction in world space
 var defaultUp = vec3.fromValues(0,1,0); // default view up vector
@@ -40,6 +40,60 @@ var Up = vec3.clone(defaultUp); // view up vector in world space
 
 // ASSIGNMENT HELPER FUNCTIONS
 
+// DEFINES INPUT TRIANGLES
+inputTriangles = [
+  { // TURTLE
+    "material": {"ambient": [0.1,0.1,0.1], "diffuse": [0.1,0.1,0.1], "specular": [0.3,0.3,0.3], "n": 11, "alpha": 0.9, "texture": "abe.png"}, 
+    "vertices": [[0.3, 0.65, 0.65],[0.6, 0.75, 0.65],[0.3, 0.85, 0.65],
+                 [0.3, 0.65, 0.55],[0.6, 0.75, 0.55],[0.3, 0.85, 0.55]],
+    //           [0.1, 0.3, 0.75],[0.25, 0.6, 0.75],[0.4, 0.3, 0.75]
+    "normals": [[0, 0, -1],[0, 0,-1],[0, 0,-1],[0, 0, -1],[0, 0,-1],[0, 0,-1]],
+    "uvs": [[0,0], [0.5,1], [1,0]],
+    "triangles": [[0,1,2],[5,4,3],[1,2,4],[4,5,2],[3,4,1],[3,0,1],[2,0,3],[2,5,3]]
+  },
+  { // TURTLE2
+    "material": {"ambient": [0.1,0.1,0.1], "diffuse": [0.1,0.1,0.1], "specular": [0.3,0.3,0.3], "n": 11, "alpha": 0.9, "texture": "abe.png"}, 
+    "vertices": [[-0.1, 0.95, 0.65],[-0.4, 1.05, 0.65],[-0.1, 1.15, 0.65],
+                 [-0.1, 0.95, 0.55],[-0.4, 1.05, 0.55],[-0.1, 1.15, 0.55]],
+    //           [0.1, -0.3, 0.75],[0.25, -0.6, 0.75],[0.4, -0.3, 0.75]
+    "normals": [[0, 0, -1],[0, 0,-1],[0, 0,-1],[0, 0, -1],[0, 0,-1],[0, 0,-1]],
+    "uvs": [[0,0], [0.5,1], [1,0]],
+    "triangles": [[0,1,2],[5,4,3],[1,2,4],[4,5,2],[3,4,1],[3,0,1],[2,0,3],[2,5,3]]
+  },
+  { // LOG
+    "material": {"ambient": [0.1,0.1,0.1], "diffuse": [0.36,0.25,0.2], "specular": [0.3,0.3,0.3], "n":17, "alpha": 0.3, "texture": "tree.png"}, 
+    "vertices": [[0.8, 1, 0.65],[0.8, 1.15, 0.65],[1.2, 1.15,0.65],[1.2, 1,0.65],
+                 [0.8, 1, 0.55],[0.8, 1.15, 0.55],[1.2, 1.15,0.55],[1.2, 1,0.55]],
+    //           [0.8, 0.1, 0.65],[0.8, 0.25, 0.65],[1.2,0.25,0.65],[1.2,0.1,0.65]
+    "normals": [[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1]],
+    "uvs": [[0,0], [0,1], [1,1], [1,0]],
+    "triangles": [[0,1,2],[2,3,0],[4,5,6],[6,7,4],[0,1,4],[5,4,1],[1,2,5],[2,6,5],[2,6,7],[2,3,7],[7,4,0],[7,3,0]]
+  },
+  { // CARR
+    "material": {"ambient": [0.1,0.1,0.1], "diffuse": [1,0,0], "specular": [0.3,0.3,0.3], "n":17, "alpha": 0.3, "texture": "tree.png"}, 
+    "vertices": [[0.3, 0.15, 0.65],[0.3, 0.35, 0.65],[0.6,0.35,0.5],[0.6,0.15,0.5],[0.6,0.35,0.65],[0.6,0.15,0.65]],
+    //           [0.3, 0.1, 0.65],[0.3, 0.4, 0.65],[0.6,0.4,0.5],[0.6,0.1,0.5],[0.6,0.4,0.65],[0.6,0.1,0.65]
+    "normals": [[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1]],
+    "uvs": [[0,0], [0,1], [1,1], [1,0]],
+    "triangles": [[0,1,2],[2,3,0],[2,1,4],[0,3,5],[0,5,4],[0,1,4]]
+  },
+  { // CARB
+    "material": {"ambient": [0.1,0.1,0.1], "diffuse": [0,0,1], "specular": [0.3,0.3,0.3], "n":17, "alpha": 0.3, "texture": "tree.png"}, 
+    "vertices": [[-0.1, -0.1, 0.65],[-0.1, 0.1, 0.65],[-0.4,0.1,0.5],[-0.4,-0.1,0.5],[-0.4,0.1,0.65],[-0.4,-0.1,0.65]],
+    //           [0.3, 0.1, 0.65],[0.3, 0.4, 0.65],[0.6,0.4,0.5],[0.6,0.1,0.5],[0.6,0.4,0.65],[0.6,0.1,0.65]
+    "normals": [[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1],[0, 0, -1]],
+    "uvs": [[0,0], [0,1], [1,1], [1,0]],
+    "triangles": [[0,1,2],[2,3,0],[2,1,4],[0,3,5],[0,5,4],[0,1,4]]
+  },
+  { // FROG
+    "material": {"ambient": [0.1,0.1,0.1], "diffuse": [0.0,1,0.0], "specular": [0.3,0.3,0.3], "n":15, "alpha": 1.0, "texture": "billie.jpg"}, 
+    "vertices": [[0.45, -0.4, 0.45],[0.55, -0.2, 0.45],[0.65,-0.4,0.45],[0.45, -0.4, 0.5],[0.55, -0.2, 0.5],[0.65,-0.4,0.5]],
+    "normals": [[0, 0, -1],[0, 0,-1],[0, 0,-1],[0, 0, -1],[0, 0,-1],[0, 0,-1]],
+    "uvs": [[0,0], [0.5,1], [1,0]],
+    "triangles": [[0,1,2],[3,4,5],[0,3,4],[0,1,4],[1,2,5],[1,4,5],[0,3,5],[0,2,5]]
+  }
+];
+// -0.5 -0.3 -.5
 // get the JSON file from the passed URL
 function getJSONFile(url,descr) {
     try {
@@ -245,7 +299,7 @@ function setupWebGL() {
       imageContext = imageCanvas.getContext("2d"); 
       var bkgdImage = new Image(); 
       bkgdImage.crossOrigin = "Anonymous";
-      bkgdImage.src = "https://ncsucgclass.github.io/prog3/sky.jpg";
+      bkgdImage.src = "https://ncsucgclass.github.io/prog4/stars.jpg";
       bkgdImage.onload = function(){
           var iw = bkgdImage.width, ih = bkgdImage.height;
           imageContext.drawImage(bkgdImage,0,0,iw,ih,0,0,cw,ch);   
@@ -354,7 +408,7 @@ function loadModels() {
         } // end catch
     } // end make ellipsoid
     
-    inputTriangles = getJSONFile(INPUT_TRIANGLES_URL,"triangles"); // read in the triangle data
+    // inputTriangles = getJSONFile(INPUT_TRIANGLES_URL,"triangles"); // read in the triangle data
 
     try {
         if (inputTriangles == String.null)
@@ -542,6 +596,7 @@ function setupShaders() {
             // combine to output color
             vec3 colorOut = ambient + diffuse + specular; // no specular yet
             gl_FragColor = vec4(colorOut, 1.0); 
+            //gl_FragColor = vec4(0,1,1,1.0);
         }
     `;
     
@@ -710,7 +765,7 @@ function renderModels() {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,triangleBuffers[numTriangleSets+whichEllipsoid]); // activate tri buffer
         
         // draw a transformed instance of the ellipsoid
-        gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+whichEllipsoid],gl.UNSIGNED_SHORT,0); // render
+        // gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+whichEllipsoid],gl.UNSIGNED_SHORT,0); // render
     } // end for each ellipsoid
 } // end render model
 
