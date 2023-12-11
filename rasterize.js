@@ -100,8 +100,8 @@ inputTriangles = [
   },
   { // FROG
     "material": {"ambient": [0.1,0.1,0.1], "diffuse": [0,1,0.0], "specular": [0.3,0.3,0.3], "n":15, "alpha": 1.0, "texture": "billie.jpg"}, 
-    "vertices": [[0.4, -0.05, 0.4],[0.45, 0., 0.4],[0.5,-0.05,0.4],
-                 [0.4, -0.05, 0.15],[0.45, 0., 0.2],[0.5,-0.05,0.15]],
+    "vertices": [[0.4, -0.05, 0.25],[0.45, 0., 0.25],[0.5,-0.05,0.25],
+                 [0.4, -0.05, 0.15],[0.45, 0., 0.15],[0.5,-0.05,0.15]],
     "normals": [[0, 0, -1],[0, 0,-1],[0, 0,-1],[0, 0, -1],[0, 0,-1],[0, 0,-1]],
     "uvs": [[0,0], [0.5,1], [1,0]],
     "triangles": [[0,1,2],[3,4,5],[0,3,4],[0,1,4],[1,2,5],[1,4,5],[0,3,5],[0,2,5]]
@@ -252,16 +252,22 @@ function handleKeyDown(event) {
             console.log(handleKeyDown.whichOn); // TEST
             break;
         case "ArrowRight": // select next triangle set
-            highlightModel(modelEnum.TRIANGLES,(handleKeyDown.whichOn+1) % numTriangleSets);
+            // highlightModel(modelEnum.TRIANGLES,(handleKeyDown.whichOn+1) % numTriangleSets);
+            translateModel(vec3.scale(temp,viewRight,viewDelta*(3/2)));
             break;
         case "ArrowLeft": // select previous triangle set
-            highlightModel(modelEnum.TRIANGLES,(handleKeyDown.whichOn > 0) ? handleKeyDown.whichOn-1 : numTriangleSets-1);
+            // highlightModel(modelEnum.TRIANGLES,(handleKeyDown.whichOn > 0) ? handleKeyDown.whichOn-1 : numTriangleSets-1);
+            translateModel(vec3.scale(temp,viewRight,-viewDelta*(3/2)));
             break;
         case "ArrowUp": // select next ellipsoid
-            highlightModel(modelEnum.ELLIPSOID,(handleKeyDown.whichOn+1) % numEllipsoids);
+            // highlightModel(modelEnum.ELLIPSOID,(handleKeyDown.whichOn+1) % numEllipsoids);
+            translateModel(vec3.scale(temp,Up,viewDelta*(3/2)));
+            translateModel(vec3.scale(temp,lookAt,viewDelta*(2/3)));
             break;
         case "ArrowDown": // select previous ellipsoid
-            highlightModel(modelEnum.ELLIPSOID,(handleKeyDown.whichOn > 0) ? handleKeyDown.whichOn-1 : numEllipsoids-1);
+            // highlightModel(modelEnum.ELLIPSOID,(handleKeyDown.whichOn > 0) ? handleKeyDown.whichOn-1 : numEllipsoids-1);
+            translateModel(vec3.scale(temp,Up,-viewDelta*(3/2)));
+            translateModel(vec3.scale(temp,lookAt,-viewDelta*(2/3)));
             break;
             
         // view change
