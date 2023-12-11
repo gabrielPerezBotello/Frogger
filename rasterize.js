@@ -859,6 +859,9 @@ function renderModels() {
     } // end for each ellipsoid
 } // end render model
 
+function animateScene() {
+
+} // end animateScene
 
 /* MAIN -- HERE is where execution begins after window load */
 
