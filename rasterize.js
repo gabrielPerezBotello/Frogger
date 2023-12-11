@@ -239,6 +239,43 @@ function handleKeyDown(event) {
     handleKeyDown.whichOn = handleKeyDown.whichOn == undefined ? -1 : handleKeyDown.whichOn; // nothing selected initially
     handleKeyDown.modelOn = handleKeyDown.modelOn == undefined ? null : handleKeyDown.modelOn; // nothing selected initially
 
+    // Moves objects in scene using model translation
+    // Draws inspiration from: https://www.educative.io/answers/how-to-add-a-delay-in-a-js-loop
+    function animateScene() {
+
+        for (var i = 0; i < 4; i++) {
+            loop(i);
+        }
+
+        function loop(i) {
+            setTimeout(() => {
+            setTimeout(()=> {
+                vec3.add(inputTriangles[5].translation,inputTriangles[5].translation,vec3.scale(temp,viewRight,-viewDelta)); // move CARB left
+            },200);
+            setTimeout(()=> {
+                vec3.add(inputTriangles[4].translation,inputTriangles[4].translation,vec3.scale(temp,viewRight,viewDelta)); // move CARR left
+            },500);
+            setTimeout(()=> {
+                vec3.add(inputTriangles[0].translation,inputTriangles[0].translation,vec3.scale(temp,viewRight,-viewDelta)); // move TURTLE right
+            },600);
+            setTimeout(()=> {
+                vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,viewDelta)); // move TURTLE2 left
+            },800);
+            setTimeout(()=> {
+                vec3.add(inputTriangles[2].translation,inputTriangles[2].translation,vec3.scale(temp,viewRight,viewDelta)); // move LOG1 left
+            },800);
+            setTimeout(()=> {
+                vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,-viewDelta)); // move LOG2 right
+            },600);
+
+            // setTimeout(() => {
+            //     console.log("Delayed for 3 second.");
+            //   }, 3000);
+            // // above timeout from: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+        },2000);
+        }
+    } // end animateScene
+
     switch (event.code) {
         
         // model selection
@@ -249,22 +286,22 @@ function handleKeyDown(event) {
             // handleKeyDown.whichOn = -1; // nothing highlighted
             // break;
             highlightModel(modelEnum.TRIANGLES,6);
-            console.log(handleKeyDown.whichOn); // TEST
-            break;
-        case "ArrowRight": // select next triangle set
+            animateScene();
+             break;
+        case "ArrowRight": // select next triangle set // move frog right
             // highlightModel(modelEnum.TRIANGLES,(handleKeyDown.whichOn+1) % numTriangleSets);
             translateModel(vec3.scale(temp,viewRight,viewDelta*(3/2)));
             break;
-        case "ArrowLeft": // select previous triangle set
+        case "ArrowLeft": // select previous triangle set // move frog left
             // highlightModel(modelEnum.TRIANGLES,(handleKeyDown.whichOn > 0) ? handleKeyDown.whichOn-1 : numTriangleSets-1);
             translateModel(vec3.scale(temp,viewRight,-viewDelta*(3/2)));
             break;
-        case "ArrowUp": // select next ellipsoid
+        case "ArrowUp": // select next ellipsoid // move frog up
             // highlightModel(modelEnum.ELLIPSOID,(handleKeyDown.whichOn+1) % numEllipsoids);
             translateModel(vec3.scale(temp,Up,viewDelta*(3/2)));
             translateModel(vec3.scale(temp,lookAt,viewDelta*(2/3)));
             break;
-        case "ArrowDown": // select previous ellipsoid
+        case "ArrowDown": // select previous ellipsoid // move frog down
             // highlightModel(modelEnum.ELLIPSOID,(handleKeyDown.whichOn > 0) ? handleKeyDown.whichOn-1 : numEllipsoids-1);
             translateModel(vec3.scale(temp,Up,-viewDelta*(3/2)));
             translateModel(vec3.scale(temp,lookAt,-viewDelta*(2/3)));
@@ -858,10 +895,6 @@ function renderModels() {
         // gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+whichEllipsoid],gl.UNSIGNED_SHORT,0); // render
     } // end for each ellipsoid
 } // end render model
-
-function animateScene() {
-
-} // end animateScene
 
 /* MAIN -- HERE is where execution begins after window load */
 
