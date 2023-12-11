@@ -243,10 +243,13 @@ function handleKeyDown(event) {
         
         // model selection
         case "Space": 
-            if (handleKeyDown.modelOn != null)
-                handleKeyDown.modelOn.on = false; // turn off highlighted model
-            handleKeyDown.modelOn = null; // no highlighted model
-            handleKeyDown.whichOn = -1; // nothing highlighted
+            // if (handleKeyDown.modelOn != null)
+            //     handleKeyDown.modelOn.on = false; // turn off highlighted model
+            // handleKeyDown.modelOn = null; // no highlighted model
+            // handleKeyDown.whichOn = -1; // nothing highlighted
+            // break;
+            highlightModel(modelEnum.TRIANGLES,6);
+            console.log(handleKeyDown.whichOn); // TEST
             break;
         case "ArrowRight": // select next triangle set
             highlightModel(modelEnum.TRIANGLES,(handleKeyDown.whichOn+1) % numTriangleSets);
@@ -340,8 +343,10 @@ function handleKeyDown(event) {
         case "KeyI": // translate up, rotate counterclockwise with shift 
             if (event.getModifierState("Shift"))
                 rotateModel(lookAt,dirEnum.POSITIVE);
-            else
+            else{
                 translateModel(vec3.scale(temp,Up,viewDelta));
+                //translateModel(vec3.scale(temp,lookAt,viewDelta));
+            }
             break;
         case "KeyP": // translate down, rotate clockwise with shift
             if (event.getModifierState("Shift"))
@@ -593,7 +598,9 @@ function loadModels() {
                     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(ellipsoidModel.triangles),gl.STATIC_DRAW); // data in
                 } // end for each ellipsoid
                 
-                viewDelta = vec3.length(vec3.subtract(temp,maxCorner,minCorner)) / 100; // set global
+                // viewDelta = vec3.length(vec3.subtract(temp,maxCorner,minCorner)) / 100; // set global
+                viewDelta = vec3.length(vec3.subtract(temp,maxCorner,minCorner)) / 25; // set global
+                console.log(viewDelta); // TEST
             } // end if ellipsoid file loaded
         } // end if triangle file loaded
     } // end try 
