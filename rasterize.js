@@ -243,7 +243,7 @@ function handleKeyDown(event) {
     // Draws inspiration from: https://www.educative.io/answers/how-to-add-a-delay-in-a-js-loop
     function animateScene() {
 
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 10; i++) {
             loop(i);
         }
 
@@ -257,22 +257,18 @@ function handleKeyDown(event) {
             },500);
             setTimeout(()=> {
                 vec3.add(inputTriangles[0].translation,inputTriangles[0].translation,vec3.scale(temp,viewRight,-viewDelta)); // move TURTLE right
+                vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,-viewDelta)); // move LOG2 right
             },600);
             setTimeout(()=> {
                 vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,viewDelta)); // move TURTLE2 left
-            },800);
-            setTimeout(()=> {
                 vec3.add(inputTriangles[2].translation,inputTriangles[2].translation,vec3.scale(temp,viewRight,viewDelta)); // move LOG1 left
             },800);
-            setTimeout(()=> {
-                vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,-viewDelta)); // move LOG2 right
-            },600);
 
             // setTimeout(() => {
             //     console.log("Delayed for 3 second.");
             //   }, 3000);
             // // above timeout from: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
-        },2000);
+        },500*i);
         }
     } // end animateScene
 
