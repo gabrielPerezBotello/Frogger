@@ -1,5 +1,8 @@
 /* GLOBAL CONSTANTS AND VARIABLES */
 
+var flagged = false; // used for determining if game has started
+
+
 /* assignment specific globals */
 const INPUT_TRIANGLES_URL = "https://ncsucgclass.github.io/prog4/triangles.json"; // triangles file loc
 const INPUT_ELLIPSOIDS_URL = "https://ncsucgclass.github.io/prog4/ellipsoids.json"; // ellipsoids file loc
@@ -234,7 +237,7 @@ function handleKeyDown(event) {
     var lookAt = vec3.create(), viewRight = vec3.create(), temp = vec3.create(); // lookat, right & temp vectors
     lookAt = vec3.normalize(lookAt,vec3.subtract(temp,Center,Eye)); // get lookat vector
     viewRight = vec3.normalize(viewRight,vec3.cross(temp,lookAt,Up)); // get view right vector
-    
+
     // highlight static variables
     handleKeyDown.whichOn = handleKeyDown.whichOn == undefined ? -1 : handleKeyDown.whichOn; // nothing selected initially
     handleKeyDown.modelOn = handleKeyDown.modelOn == undefined ? null : handleKeyDown.modelOn; // nothing selected initially
@@ -243,9 +246,17 @@ function handleKeyDown(event) {
     // Draws inspiration from: https://www.educative.io/answers/how-to-add-a-delay-in-a-js-loop
     function animateScene() {
 
-        for (var i = 0; i < 10; i++) {
+        var i = 0;
+        for (i = 0; i < 1200; i++ ) {
             loop(i);
         }
+
+        var t2Count = 0;
+        var t1Count = 0;
+        var l1Count = 0;
+        var l2Count = 0;
+        var carrCount = 0;
+        var carbCount = 0;
 
         function loop(i) {
             setTimeout(() => {
@@ -253,16 +264,41 @@ function handleKeyDown(event) {
                 vec3.add(inputTriangles[5].translation,inputTriangles[5].translation,vec3.scale(temp,viewRight,-viewDelta)); // move CARB left
             },200);
             setTimeout(()=> {
-                vec3.add(inputTriangles[4].translation,inputTriangles[4].translation,vec3.scale(temp,viewRight,viewDelta)); // move CARR left
+                vec3.add(inputTriangles[4].translation,inputTriangles[4].translation,vec3.scale(temp,viewRight,viewDelta)); // move CARR right
             },500);
             setTimeout(()=> {
-                vec3.add(inputTriangles[0].translation,inputTriangles[0].translation,vec3.scale(temp,viewRight,-viewDelta)); // move TURTLE right
-                vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,-viewDelta)); // move LOG2 right
+                vec3.add(inputTriangles[0].translation,inputTriangles[0].translation,vec3.scale(temp,viewRight,-viewDelta)); // move TURTLE left
+                vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,-viewDelta)); // move LOG2 left
             },600);
             setTimeout(()=> {
-                vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,viewDelta)); // move TURTLE2 left
-                vec3.add(inputTriangles[2].translation,inputTriangles[2].translation,vec3.scale(temp,viewRight,viewDelta)); // move LOG1 left
+                vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,viewDelta)); // move TURTLE2 right
+                vec3.add(inputTriangles[2].translation,inputTriangles[2].translation,vec3.scale(temp,viewRight,viewDelta)); // move LOG1 right
             },800);
+
+            if (i == 4 + 15*t2Count) { // Handles TURTLE2 movement
+                vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,-viewDelta*15)); // move TURTLE2 left board
+                t2Count++;
+            }
+            if (i == 12 + 15*l1Count) { // Handles LOG1 movement
+                vec3.add(inputTriangles[2].translation,inputTriangles[2].translation,vec3.scale(temp,viewRight,-viewDelta*15)); // move LOG1 left board
+                l1Count++;
+            }
+            if (i == 14 + 15*t1Count) { // Handles TURTLE movement
+                vec3.add(inputTriangles[0].translation,inputTriangles[0].translation,vec3.scale(temp,viewRight,viewDelta*15)); // move TURTLE2 left board
+                t1Count++;
+            }
+            if (i == 9 + 15*l2Count) { // Handles LOG2 movement
+                vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,viewDelta*15)); // move LOG1 right board
+                l2Count++;
+            }
+            if (i == 11 + 15*carrCount) { // Handles CARR movement
+                vec3.add(inputTriangles[4].translation,inputTriangles[4].translation,vec3.scale(temp,viewRight,-viewDelta*15)); // move CARR left board
+                carrCount++;
+            }
+            if (i == 12 + 15*carbCount) { // Handles CARR movement
+                vec3.add(inputTriangles[5].translation,inputTriangles[5].translation,vec3.scale(temp,viewRight,viewDelta*15)); // move CARR right board
+                carbCount++;
+            }
 
             // setTimeout(() => {
             //     console.log("Delayed for 3 second.");
@@ -282,7 +318,10 @@ function handleKeyDown(event) {
             // handleKeyDown.whichOn = -1; // nothing highlighted
             // break;
             highlightModel(modelEnum.TRIANGLES,6);
-            animateScene();
+            if (!flagged) {
+                animateScene();
+                flagged = !flagged;
+            }
              break;
         case "ArrowRight": // select next triangle set // move frog right
             // highlightModel(modelEnum.TRIANGLES,(handleKeyDown.whichOn+1) % numTriangleSets);
