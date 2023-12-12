@@ -260,20 +260,12 @@ function handleKeyDown(event) {
 
         function loop(i) {
             setTimeout(() => {
-            setTimeout(()=> {
                 vec3.add(inputTriangles[5].translation,inputTriangles[5].translation,vec3.scale(temp,viewRight,-viewDelta)); // move CARB left
-            },200);
-            setTimeout(()=> {
-                vec3.add(inputTriangles[4].translation,inputTriangles[4].translation,vec3.scale(temp,viewRight,viewDelta)); // move CARR right
-            },500);
-            setTimeout(()=> {
+                vec3.add(inputTriangles[4].translation,inputTriangles[4].translation,vec3.scale(temp,viewRight,viewDelta*(3/2))); // move CARR right
                 vec3.add(inputTriangles[0].translation,inputTriangles[0].translation,vec3.scale(temp,viewRight,-viewDelta)); // move TURTLE left
                 vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,-viewDelta)); // move LOG2 left
-            },600);
-            setTimeout(()=> {
                 vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,viewDelta)); // move TURTLE2 right
                 vec3.add(inputTriangles[2].translation,inputTriangles[2].translation,vec3.scale(temp,viewRight,viewDelta)); // move LOG1 right
-            },800);
 
             if (i == 4 + 15*t2Count) { // Handles TURTLE2 movement
                 vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,-viewDelta*15)); // move TURTLE2 left board
@@ -291,7 +283,7 @@ function handleKeyDown(event) {
                 vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,viewDelta*15)); // move LOG1 right board
                 l2Count++;
             }
-            if (i == 11 + 15*carrCount) { // Handles CARR movement
+            if (i == 7 + 9*carrCount) { // Handles CARR movement
                 vec3.add(inputTriangles[4].translation,inputTriangles[4].translation,vec3.scale(temp,viewRight,-viewDelta*15)); // move CARR left board
                 carrCount++;
             }
