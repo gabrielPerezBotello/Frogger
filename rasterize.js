@@ -257,6 +257,8 @@ function handleKeyDown(event) {
         var l2Count = 0;
         var carrCount = 0;
         var carbCount = 0;
+        var count = 1;
+        var count1 = 1;
 
         function loop(i) {
             setTimeout(() => {
@@ -267,10 +269,19 @@ function handleKeyDown(event) {
                 vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,viewDelta)); // move TURTLE2 right
                 vec3.add(inputTriangles[2].translation,inputTriangles[2].translation,vec3.scale(temp,viewRight,viewDelta)); // move LOG1 right
 
-            if (i == 4 + 15*t2Count) { // Handles TURTLE2 movement
+            if (i == 3 + 15*t2Count) { // Handles TURTLE2 movement
                 vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,viewRight,-viewDelta*15)); // move TURTLE2 left board
                 t2Count++;
             }
+            
+            if (i != 0 && i == 5 * count) {
+                vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,lookAt,viewDelta*2)); // move TURTLE2 behind board
+                count++;
+            } else if (i != 0 && i == 2 + 5*count1) {
+                vec3.add(inputTriangles[1].translation,inputTriangles[1].translation,vec3.scale(temp,lookAt,-(viewDelta*2))); // move TURTLE2 infront of board
+                count1++;
+            }
+            
             if (i == 12 + 15*l1Count) { // Handles LOG1 movement
                 vec3.add(inputTriangles[2].translation,inputTriangles[2].translation,vec3.scale(temp,viewRight,-viewDelta*15)); // move LOG1 left board
                 l1Count++;
@@ -283,7 +294,7 @@ function handleKeyDown(event) {
                 vec3.add(inputTriangles[3].translation,inputTriangles[3].translation,vec3.scale(temp,viewRight,viewDelta*15)); // move LOG1 right board
                 l2Count++;
             }
-            if (i == 7 + 9*carrCount) { // Handles CARR movement
+            if (i == 7 + 10*carrCount) { // Handles CARR movement
                 vec3.add(inputTriangles[4].translation,inputTriangles[4].translation,vec3.scale(temp,viewRight,-viewDelta*15)); // move CARR left board
                 carrCount++;
             }
