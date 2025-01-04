@@ -1,4 +1,3 @@
-# prog4 shell
+# Frogger
 
-This repo branch contains a shell for program 4 in nc state cg class 2020. 
-
+Utilizes javascript and WebGL to create a 3D space in which the User can move a "Frog" represented by a green triangle at the bottom of the board to traverse a recreation of the classic "Frogger" game.
